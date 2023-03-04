@@ -1,0 +1,15 @@
+html {
+    overflow: hidden;
+}
+
+
+
+
+
+canvas {
+    background-color: rgb(0, 0, 0);
+    filter: opacity(0.8)  saturate(1.1) ;
+    width: 1fr;
+    height: 100vh;
+}
+
