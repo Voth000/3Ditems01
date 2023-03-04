@@ -13,7 +13,26 @@ import {DragControls} from "./DragControls.js";
 const canvas = document.querySelector('.webgl')
 const scene = new THREE.Scene()
 
+//responsive
 
+
+
+window.addEventListener('resize', () => {
+    sizes.width = window.innerWidth;
+    sizes.height = window.innerHeight;
+
+    camera.aspect = sizes.width / sizes.height;
+    camera.updateProjectionMatrix();
+
+    renderer.setSize(sizes.width, sizes.height);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+    
+    // renderer.render(scene, camera); // -> Not needed since it is called in animate()
+});
+
+
+
+//gltf
 
 const loader = new GLTFLoader()
 loader.load('./4.glb', function(glb){
@@ -35,12 +54,12 @@ root.traverse(function(node) {
 //light
 const light = new THREE.AmbientLight(0xffffff, 0.8)
 light.position.set(2,10,5)
-light.castShadow = true
+
 scene.add(light)
 
 const al = new THREE.AmbientLight(0xFF00FF, 0.6)
 al.position.set(20,-10,-5)
-al.castShadow = true
+
 scene.add( al )
 
 const wl = new THREE.DirectionalLight(0xFFFF00, 0.8)
