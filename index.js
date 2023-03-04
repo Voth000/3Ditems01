@@ -36,7 +36,10 @@ window.addEventListener('resize', () => {
 
 const loader = new GLTFLoader()
 loader.load('./4.glb', function(glb){
-  console.log(glb)
+  console.log(glb);
+  
+  glb.scene.position.y = -3;
+  
 const root = glb.scene;
 root.scale.set(2, 2, 2);
 root.traverse(function(node) {
@@ -52,17 +55,17 @@ root.traverse(function(node) {
 })
 
 //light
-const light = new THREE.AmbientLight(0xffffff, 0.8)
+const light = new THREE.AmbientLight(0xffffff, 0.9)
 light.position.set(2,10,5)
 
 scene.add(light)
 
-const al = new THREE.AmbientLight(0xFF00FF, 0.6)
+const al = new THREE.AmbientLight(0xFF00FF, 0.3)
 al.position.set(20,-10,-5)
 
 scene.add( al )
 
-const wl = new THREE.DirectionalLight(0xFFFF00, 0.8)
+const wl = new THREE.DirectionalLight(0xFFFF00, 0.7)
 wl.position.set(8,3,8)
 wl.castShadow = true
 scene.add( wl )
@@ -72,6 +75,7 @@ const planeGeometry = new THREE.PlaneGeometry( 40, 30, 32, 32 );
 const planeMaterial = new THREE.MeshStandardMaterial( { color: 0xFFFFFF } )
 const plane = new THREE.Mesh( planeGeometry, planeMaterial );
 plane.receiveShadow = true;
+plane.position.y = -3;
 plane.rotateX( - Math.PI / 2);
 scene.add( plane );
 ///grid
@@ -87,7 +91,7 @@ const sizes = {
 
 //camera
 const camera = new THREE.PerspectiveCamera(70, sizes.width/sizes.height, 0.1, 1000)
-camera.position.set(0,10,9)
+camera.position.set(2,8,9)
 camera.lookAt(scene.position)
 scene.add(camera)
 

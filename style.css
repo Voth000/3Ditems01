@@ -19,7 +19,7 @@ body{
 
 canvas {
     background-color: rgb(252, 252, 252);
-    filter: opacity(1)  saturate(1) ;
+    filter: opacity(0.8)  saturate(1.4) contrast(0.8) ;
     width: 100%;
     height: 100%;
 }
