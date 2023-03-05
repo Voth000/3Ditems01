@@ -13,6 +13,8 @@ import {DragControls} from "./DragControls.js";
 const canvas = document.querySelector('.webgl')
 const scene = new THREE.Scene()
 
+
+
 //responsive
 
 
@@ -37,35 +39,83 @@ window.addEventListener('resize', () => {
 const loader = new GLTFLoader()
 loader.load('./4.glb', function(glb){
   console.log(glb);
-  
-  glb.scene.position.y = -3;
-  
+
+
 const root = glb.scene;
 root.scale.set(2, 2, 2);
+root.position.y= -3;
+root.visible = true;
+root.name = "root";
+
+document.getElementById("button1").addEventListener("click", function(){
+    scene.getObjectByName( 'root1' ).visible = false;
+root.visible = !root.visible;
+});
+
 root.traverse(function(node) {
     if(node.isMesh)
+    node.material.metalness = 0.2;
     node.castShadow = true;
     node.receiveShadow = false;
-})
+    
+});
    scene.add(root);
+}, function(xhr){
+   console.log(xhr.loaded/xhr.total * 100 + "% loaded")
+}, function(error){
+   console.log("an error has occurred")
+});
+
+
+///glb2
+
+const loader1 = new GLTFLoader()
+loader1.load('./3.glb', function(glb){
+  console.log(glb);
+
+ 
+const root1 = glb.scene;
+root1.scale.set(2, 2, 2);
+root1.position.y= -2;
+root1.position.z= 3;
+root1.name = "root1";
+root1.alpha = true,
+root1.visible = false;
+document.getElementById("button2").addEventListener("click", function(){
+    scene.getObjectByName( 'root' ).visible = false;
+root1.visible = !root1.visible;
+
+});
+
+root1.traverse(function(node1) {
+    if(node1.isMesh)
+    node1.material.metalness = 0.1;
+   
+    node1.castShadow = true;
+    node1.receiveShadow = false;
+    
+});
+   scene.add(root1);
 }, function(xhr){
    console.log(xhr.loaded/xhr.total * 100 + "% loaded")
 }, function(error){
    console.log("an error has occurred")
 })
 
+
+
 //light
-const light = new THREE.AmbientLight(0xffffff, 0.9)
+const light = new THREE.AmbientLight(0xffffff, 0.7)
 light.position.set(2,10,5)
 
 scene.add(light)
 
-const al = new THREE.AmbientLight(0xFF00FF, 0.3)
+const al = new THREE.AmbientLight(0xFF00FF, 0.4)
 al.position.set(20,-10,-5)
 
 scene.add( al )
 
-const wl = new THREE.DirectionalLight(0xFFFF00, 0.7)
+const wl = new THREE.DirectionalLight(0xFFFF00, 0.4)
 wl.position.set(8,3,8)
 wl.castShadow = true
 scene.add( wl )
@@ -116,10 +166,13 @@ controls.autoRotate = true;
 ///
 
 renderer.setSize(window.innerWidth,window.innerHeight)
+renderer.outputEncoding = THREE.sRGBEncoding
+renderer.gammaOutput = true
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 4))
 renderer.shadowMap.enabled = true
 renderer.render(scene,camera)
 renderer.setClearColor( 0xffffff, 0)
+document.body.appendChild( renderer.domElement );
 
 function animate(){
     controls.update();
@@ -127,6 +180,7 @@ requestAnimationFrame(animate)
 renderer.render(scene,camera)
 }
 animate()
+
 
 
 
