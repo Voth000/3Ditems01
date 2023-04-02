@@ -126,7 +126,7 @@ grid-template-rows: auto auto;
 }
 
 span {
-    
+    cursor: default;
  max-width: 30%;
     align-self: right;
   justify-self: right;
@@ -192,6 +192,7 @@ padding: 4px;
 }
 
 #btn3{
+    cursor: pointer;
     max-height: 44px;
     display: flex;
 justify-content: center;
@@ -266,7 +267,12 @@ h4 {
 }
 
 #if {
+    cursor: default;
     display: grid;
     grid-template-columns: auto auto;
     grid-gap: 8px;
+}
+
+canvas#load.webgl:active, canvas#load.webgl:hover, canvas#load.webgl {
+outline: 1px solid #e016ff;
 }
